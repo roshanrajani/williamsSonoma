@@ -1,0 +1,39 @@
+.background-container {
+  background: lightcoral;
+  h1 {
+    text-align: center;
+  }
+  .container {
+    position: relative;
+    width: 400px;
+    margin: 100px;
+    padding: 5px 0 0 5px;
+    .back-color{
+      background-color: lightgray;
+    }
+    .top-left {
+      position: absolute;
+      left: 16px;
+      color: black;
+      font-weight: bold;
+    }
+    .bottom-left {
+      position: absolute;
+      bottom: 8px;
+      left: 16px;
+      font-weight: bold;
+      background: black;
+      color: white;
+    }
+    img {
+      cursor: pointer;
+    }
+
+  }
+}
+ngb-carousel {
+  padding-left: 50px;
+  background-color: darkslategrey;
+}
+
+
