@@ -1,9 +1,7 @@
-import { Template } from '@angular/compiler/src/render3/r3_ast';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, HostListener } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductsMock } from '../../mockData/mockData';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -15,47 +13,28 @@ export class ProductsComponent implements OnInit {
   title: string;
   groups: any;
   name: string;
-  cols : number;
-  gridByBreakpoint = {
-    xl: 3,
-    lg: 3,
-    md: 3,
-    sm: 2,
-    xs: 1
-  }
-  constructor(private modalService: NgbModal, configCarousel: NgbCarouselConfig, private breakpointObserver: BreakpointObserver) {
-    configCarousel.interval = 10000;
-    configCarousel.wrap = false;
-    configCarousel.keyboard = false;
-    configCarousel.pauseOnHover = false;
-    this.breakpointObserver.observe([
-      Breakpoints.XSmall,
-      Breakpoints.Small,
-      Breakpoints.Medium,
-      Breakpoints.Large,
-      Breakpoints.XLarge,
-    ]).subscribe(result => {
-      if (result.matches) {
-        if (result.breakpoints[Breakpoints.XSmall]) {
-          this.cols = this.gridByBreakpoint.xs;
-        }
-        if (result.breakpoints[Breakpoints.Small]) {
-          this.cols = this.gridByBreakpoint.sm;
-        }
-        if (result.breakpoints[Breakpoints.Medium]) {
-          this.cols = this.gridByBreakpoint.md;
-        }
-        if (result.breakpoints[Breakpoints.Large]) {
-          this.cols = this.gridByBreakpoint.lg;
-        }
-        if (result.breakpoints[Breakpoints.XLarge]) {
-          this.cols = this.gridByBreakpoint.xl;
-        }
-      }
-    });
-   }
+  cols: number;
   images: string;
+  screenWidth: number;
+  @ViewChild('insideContent', {static: true})
+	insideContent: TemplateRef<any>;
+  @HostListener("window:resize", []) resizeBrowser() {
+    this.screenWidth = window.innerWidth
+    if (this.screenWidth >= 1200) {
+      this.cols = 3; //lg
+    } else if (this.screenWidth >= 992) {
+      this.cols = 2; //md
+    } else if (this.screenWidth  >= 768) {
+      this.cols = 1; //sm
+    } else if (this.screenWidth < 768) {
+      this.cols = 1; //xs
+    }
+  }
+  constructor(private modalService: NgbModal) { }
+
   ngOnInit(): void {
+    this.cols = 3;
+    this.screenWidth = window.innerWidth;
     this.products = ProductsMock;
     this.getProducts(ProductsMock);
   }
@@ -65,7 +44,7 @@ export class ProductsComponent implements OnInit {
     this.groups = data.groups;
   }
 
-  openModal(insideContent: Template, group) {
+  openModal(insideContent, group) {
     this.modalService.open(insideContent, { size: 'md' });
     this.name = group.name;
     this.images = group.images.map((image) => image.href);

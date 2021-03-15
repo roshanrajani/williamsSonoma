@@ -20,7 +20,7 @@
       <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
     </div>
   </ng-template>
-  <mat-grid-list [cols]="cols" rowHeight="2:1" #grid>
+  <mat-grid-list [cols]="cols" rowHeight="400px" gutterSize="10px" #grid>
     <ng-container *ngFor="let group of groups">
       <mat-grid-tile>
         <div class="container">
