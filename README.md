@@ -1,6 +1,6 @@
 # WilliamsSonoma
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5, Grid(https://material.angular.io/), Modals(https://ng-bootstrap.github.io/#/home).
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5, Grid(Flexbox), Modals(https://ng-bootstrap.github.io/#/home).
 
 ## Development server
 
