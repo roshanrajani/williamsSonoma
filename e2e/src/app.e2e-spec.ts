@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', async () => {
     await page.navigateTo();
-    expect(await page.getTitleText()).toEqual('williams-sonoma app is running!');
+    expect(await page.getTitleText()).toEqual('All New Williams Products');
   });
 
   afterEach(async () => {
